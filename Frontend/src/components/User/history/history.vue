@@ -47,7 +47,7 @@ import { ref, inject } from "vue";
 import User from "../../../services/user.service";
 
 const Information = ref([]);
-const user = inject('user').user;
+const user = inject('user');
 // Truyền id user vào
 User.getHistory(user.userId).then((history) => {
   Information.value = history;

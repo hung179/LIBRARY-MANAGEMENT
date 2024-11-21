@@ -50,7 +50,7 @@
       </a>
       </div>
       <div class="ml-4 border border-2 rounded-full border-black ">
-        <userIcon v-if="userInformation.user"/>
+        <userIcon v-if="userInformation"/>
       </div>
     </div>
   </div>

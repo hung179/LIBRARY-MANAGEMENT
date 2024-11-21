@@ -16,6 +16,11 @@ import adminCreate from '../components/Admin/bookManagement/bookManagement.vue';
 import adminFix from '../components/Admin/bookManagement/fixbook.vue'
 
 import contact from '../components/contact/contact.vue';
+
+import forBidden from '../components/Forbidden/forBidden.vue';
+
+import store from '../store';
+
 const routes = [
     {
         path: '/',
@@ -33,9 +38,9 @@ const routes = [
                 component: unknowSearch
             },
             {
-                path: 'contact',
-                name: 'unknow-contact',
-                component: contact
+                path: 'forbidden',
+                name: 'forbidden',
+                component: forBidden
             }
         ]
     },
@@ -64,7 +69,11 @@ const routes = [
                 name: 'user-contact',
                 component: contact
             }
-        ]
+        ],
+        meta: {
+            requiresAuth: true,
+            roles: ['user']
+        }
     },
     {
         path: '/admin',
@@ -91,7 +100,11 @@ const routes = [
                 name: 'admin-fix-book',
                 component: adminFix
             }
-        ]
+        ],
+        meta: {
+            requiresAuth: true,
+            roles: ['admin']
+        }
     }
 
 ];
@@ -100,4 +113,21 @@ const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
 });
+
+router.beforeEach((to, from, next) => {
+    // Kiểm tra đăng nhập
+    if (to.meta.requiresAuth) {
+        if (!store.getters['auth/isAuthenticated']) {
+            return next('/'); // Chuyển hướng đến trang đăng nhập
+        }
+        
+        // Kiểm tra quyền
+        const role = store.getters['auth/userRole'];
+      if (!to.meta.roles.includes(role)) {
+        return next('/forbidden'); // Trang bị cấm truy cập
+      }
+    }
+    next();
+  });
+
 export default router;

@@ -113,7 +113,7 @@ defineProps({
 
 
 const borrowed = ref(false);
-const user = inject('user').user
+const user = inject('user')
 const borrow = (Information) => {
   userService
     .borrow({

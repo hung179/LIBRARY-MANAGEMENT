@@ -121,8 +121,6 @@ const isOpen = ref(true)
 function closeModal() {
   isOpen.value = false;
   currentForm.value = null;
-  // currentForm.clear(); // nếu muốn xóa dữ liệu trước khi đóng modal, thì dùng hàm clear() hoặc reset()
-  //   currentForm.reset(); làm mới form hiện tại
 }
 
 const changeForm = (value) => {
@@ -135,23 +133,42 @@ import unknowService from "../../../services/unknow.service"
 const username = ref("")
 const password = ref("")
 
-const login = () => {
-  unknowService.getUser({
-    username: username.value,
-    password: password.value,
-  }).then(
-    (user) => {
-      console.log(user)
-      if(user.user.role === 'user'){
-      localStorage.setItem("user", JSON.stringify(user))
-      router.push("/user")}
-      else {
-        localStorage.setItem("admin", JSON.stringify(user))
-        router.push("/admin")
-      }
-    }
-  )
-}
+// const login = () => {
+//   unknowService.getUser({
+//     username: username.value,
+//     password: password.value,
+//   }).then(
+//     (user) => {
+//       console.log(user)
+//       if(user.user.role === 'user'){
+//       localStorage.setItem("user", JSON.stringify(user))
+//       router.push("/user")}
+//       else {
+//         localStorage.setItem("admin", JSON.stringify(user))
+//         router.push("/admin")
+//       }
+//     }
+//   )
+// }
 
+import { useStore } from 'vuex';
+const store = useStore();
+
+const login = async () => {
+  const result = await store.dispatch('auth/login', { username: username.value, password: password.value });
+  if (result.success) {
+    // Điều hướng dựa trên vai trò
+    const role = store.getters['auth/userRole'];
+    console.log(role);
+
+    if (role === 'admin') {
+      router.push({ name: 'admin' });
+    } else if (role === 'user') {
+      router.push({ name: 'user' });
+    }
+  } else {
+    alert(result.message);
+  }
+};
 
 </script>

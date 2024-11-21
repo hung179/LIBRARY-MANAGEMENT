@@ -19,19 +19,18 @@ const router = useRouter();
 var user= ref({})
 
 const userInformation = ref({})
-const storedUser = localStorage.getItem('admin'); 
+const storedUser = localStorage.getItem('user'); 
   
 if (storedUser) {
     try {
       userInformation.value = JSON.parse(storedUser);
       user = userInformation.value;
-
     } catch (error) {
       console.error("Error parsing stored user data:", error);
       router.push('/');} 
     } else {
-    router.push('/');
-  }  
-
-  provide('user', user);
+      router.push('/');
+    }  
+    provide('user', user);
+    console.log(user)
 </script>

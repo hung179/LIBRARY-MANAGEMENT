@@ -10,7 +10,7 @@
 </template>
 
 <script setup>
-import { onMounted, shallowRef, ref, provide, reactive } from "vue";
+import { shallowRef, ref, provide} from "vue";
 import Header from "./Header.vue";
 import FooterComponent from "./Footer.vue";
 const currentForm = shallowRef(null);
@@ -29,7 +29,7 @@ if (storedUser) {
       console.error("Error parsing stored user data:", error);
       router.push('/');} 
     } else {
-    router.push('/');
-  }  
-  provide('user', user);
+      router.push('/');
+    }  
+    provide('user', user);
 </script>

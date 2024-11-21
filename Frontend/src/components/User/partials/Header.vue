@@ -54,14 +54,14 @@
       </div>
       <div class="ml-4 border border-2 rounded-full border-black ">
         <!-- Chỗ này sẽ render ra icon người dùng và drop down -->
-        <userIcon v-if="userInformation.user"/>
+        <userIcon v-if="userInformation"/>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref, inject } from "vue"
+import { ref, inject, onMounted } from "vue"
 import {useRouter} from "vue-router"
 import userIcon from "./UserIcon.vue"
 
@@ -92,5 +92,4 @@ const goToContact = () => {
 // }
 
 const userInformation = inject('user')
-
 </script>

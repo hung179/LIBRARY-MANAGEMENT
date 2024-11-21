@@ -4,9 +4,9 @@
     class="flex flex-col justify-between mb-4 border border-gray-200 rounded-lg shadow-lg max-w-60"
   >
     <a @click="currentBookInformation(bookInformation, $event)" href="#">
-      <div class="py-2 h-auto object-contain">
+      <div class="py-2 h-auto object-contain min-h-[18rem]">
         <!-- Hình ảnh sách -->
-        <img :src="book.image" alt="" />
+        <img class="mx-auto" :src="book.image" alt="" />
       </div>
       <!-- Lưu ý tên sách và tên tác giả được giữ cố định, vượt quá cố định có thể gây lệch phần tử -->
       <div class="px-4 min-h-[4rem]">

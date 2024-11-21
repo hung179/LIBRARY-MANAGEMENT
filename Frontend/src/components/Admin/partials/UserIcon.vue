@@ -40,7 +40,7 @@ const router = useRouter();
 
 const dropdownVisible = ref(false);
 
-const User = inject('user').user
+const User = inject('user')
 
 const toggleDropdown = () => {
   dropdownVisible.value = !dropdownVisible.value;

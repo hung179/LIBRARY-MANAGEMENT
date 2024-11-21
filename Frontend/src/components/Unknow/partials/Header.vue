@@ -24,9 +24,6 @@
             <li class="mb-2">
               <a @click="goToSearch" href="#" class="text-2l font-bold hover:underline">Tìm kiếm</a>
             </li>
-            <li class="mb-2">
-              <a @click="goToContact" class="text-2l font-bold hover:underline">Liên hệ</a>
-            </li>
           </ul>
         </div>
       </div>
